@@ -1,49 +1,27 @@
-import axios from 'axios'
+import axios from "axios";
 
-axios.get('https://lambda-times-api.herokuapp.com/articles')
+const theCards = document.querySelector(".cards-container");
 
-.then(stuff => {
-console.log(stuff)
-const theCards = document.querySelector('.cards')
-const objects = stuff.data.articles
-objects.forEach((article) =>{
-    objects.appendChild(article)
-})
+axios.get("https://lambda-times-backend.herokuapp.com/articles")
+  .then((stuff) => {
+    const javascript = Object.values(stuff.data.articles.javascript)
+    const bootstrap = Object.values(stuff.data.articles.bootstrap)
+    const jquery = Object.values(stuff.data.articles.jquery)
+    const node = Object.values(stuff.data.articles.node)
+    const technology = Object.values(stuff.data.articles.technology)
+    const topics = [javascript, bootstrap, jquery, node, technology]
 
+    topics.forEach((articles) => {
+        articles.forEach((item) => {
+          theCards.append(cardMaker(item))
+        })
+      })
+      
+      })
+      .catch((err) => {
+        console.log(err);
+  })
 
-
-// for(let i = 0; i < stuff.data.articles.javascript.length; i++)
-//  {
-//     cardMaker(stuff.data.articles.javascript[i]);
-//  }
-
-//  for(let i = 0; i < stuff.data.articles.bootstrap.length; i++)
-//  {
-//     cardMaker(stuff.data.articles.bootstrap[i]);
-//  }
-
-//  for(let i = 0; i < stuff.data.articles.technology.length; i++)
-//  {
-//    cardMaker(stuff.data.articles.technology[i]);
-// }
-
-//  for(let i = 0; i < stuff.data.articles.jquery.length; i++)
-//  {
-//    cardMaker(stuff.data.articles.jquery[i]);
-// }
-
-//  for(let i = 0; i < stuff.data.articles.node.length; i++)
-//  {
-//    cardMaker(stuff.data.articles.node[i]);
- 
-//  }
- theCards.appendChild(cardMaker(stuff.data))
-
-
- })
- .catch( err => {
-     console.log(err)
- })
 
 // STEP 3: Create article cards.
 // -----------------------
@@ -68,44 +46,33 @@ objects.forEach((article) =>{
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 
+function cardMaker(obj) {
+  const theCard = document.createElement("div");
+  theCard.classList.add("card");
 
+  const theHeadline = document.createElement("div");
+  theHeadline.classList.add("headline");
+  theHeadline.textContent = obj.headline;
+  theCard.appendChild(theHeadline);
 
-function cardMaker(obj){
+  const theAuthor = document.createElement("div");
+  theAuthor.classList.add("author");
+  theCard.appendChild(theHeadline);
 
-const theCard = document.createElement('div')
-theCard.classList.add('card')
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("img-container");
+  imgContainer.src = obj.authorPhoto;
+  imgContainer.appendChild(theAuthor);
 
-const theHeadline = document.createElement('div')
-theHeadline.classList.add('headline')
-theHeadline.textContent = obj.headline
-theCard.appendChild(theHeadline)
+  const theyName = document.createElement("span");
+  theyName.textContent = obj.authorName;
+  imgContainer.appendChild(theyName);
 
-const theAuthor = document.createElement('div')
-theAuthor.classList.add('author')
-theCard.appendChild(theHeadline)
+  theHeadline.addEventListener("click", () => {
+    console.log(obj.headline);
 
-
-const imgContainer = document.createElement('div')
-imgContainer.classList.add('img-container')
-imgContainer.src = obj.authorPhoto
-imgContainer.appendChild(theAuthor)
-
-const theyName = document.createElement('span')
-theyName.textContent = obj.authorName
-imgContainer.appendChild(theyName)
-
-
-theHeadline.addEventListener('click', () => {
-  console.log(obj.headline)
-
-  const myContainer = document.querySelector('.cards-container')
-  myContainer.appendChild(cardMaker(theCard))
-})
-return theCard
+    const myContainer = document.querySelector(".cards-container");
+    myContainer.appendChild(cardMaker(theCards));
+  });
+  return theCard;
 }
-
-
-
-
-
-

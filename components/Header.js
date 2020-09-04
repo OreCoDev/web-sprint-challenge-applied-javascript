@@ -17,16 +17,16 @@ function Header() {
   const theDate = document.createElement("span");
   theDate.classList.add("date");
   theDate.textContent = "March 28, 2020";
-  theDate.appendChild(theHeader);
+  theHeader.appendChild(theDate);
 
   const theTitle = document.createElement("h1");
   theTitle.textContent = "Lambda Times";
-  theTitle.appendChild(theHeader);
+  theHeader.appendChild(theTitle);
 
-  const theTemp = document.createElement("span2");
+  const theTemp = document.createElement("span");
   theTemp.classList.add("temp");
   theTemp.textContent = "98°";
-  theTemp.appendChild(theHeader)
+  theHeader.appendChild(theTemp)
 
   return theHeader;
 }
