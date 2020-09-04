@@ -5,31 +5,38 @@ axios.get('https://lambda-times-api.herokuapp.com/articles')
 .then(stuff => {
 console.log(stuff)
 const theCards = document.querySelector('.cards')
-for(let i = 0; i < stuff.data.articles.javascript.length; i++)
- {
-    cardMaker(stuff.data.articles.javascript[i]);
- }
+const objects = stuff.data.articles
+objects.forEach((article) =>{
+    objects.appendChild(article)
+})
 
- for(let i = 0; i < stuff.data.articles.bootstrap.length; i++)
- {
-    cardMaker(stuff.data.articles.bootstrap[i]);
- }
 
- for(let i = 0; i < stuff.data.articles.technology.length; i++)
- {
-   cardMaker(stuff.data.articles.technology[i]);
-}
 
- for(let i = 0; i < stuff.data.articles.jquery.length; i++)
- {
-   cardMaker(stuff.data.articles.jquery[i]);
-}
+// for(let i = 0; i < stuff.data.articles.javascript.length; i++)
+//  {
+//     cardMaker(stuff.data.articles.javascript[i]);
+//  }
 
- for(let i = 0; i < stuff.data.articles.node.length; i++)
- {
-   cardMaker(stuff.data.articles.node[i]);
+//  for(let i = 0; i < stuff.data.articles.bootstrap.length; i++)
+//  {
+//     cardMaker(stuff.data.articles.bootstrap[i]);
+//  }
+
+//  for(let i = 0; i < stuff.data.articles.technology.length; i++)
+//  {
+//    cardMaker(stuff.data.articles.technology[i]);
+// }
+
+//  for(let i = 0; i < stuff.data.articles.jquery.length; i++)
+//  {
+//    cardMaker(stuff.data.articles.jquery[i]);
+// }
+
+//  for(let i = 0; i < stuff.data.articles.node.length; i++)
+//  {
+//    cardMaker(stuff.data.articles.node[i]);
  
- }
+//  }
  theCards.appendChild(cardMaker(stuff.data))
 
 
